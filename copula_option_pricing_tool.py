@@ -8,7 +8,7 @@ from numpy import log, sqrt, exp
 from scipy.interpolate import interp1d
 
 # path to Heston-Nandi GARCH library
-os.chdir(r'C:\Users\edoardo_berton\Desktop\copula_op\code\my_lib')
+os.chdir(r'C:\Users\code\my_lib')
 
 from HNGarch import *
 
@@ -1094,8 +1094,6 @@ class c_plackett(object):
         res = np.exp(-r*(nsteps/252))*np.sum(final_m)
         return res
 
-#%%
-
 if __name__ == '__main__':
     import pandas as pd
     import numpy as np
@@ -1114,21 +1112,17 @@ if __name__ == '__main__':
     dict_var = copula.dict_creator()
     
     copula.cplackett_est()
-#%%
 
     for i in range(5):
         pc_new = copula.new_sim(k=0., theta=20, n_steps=90, n_sim=10000)
         print(pc_new)
-    
-#%%
+
     # analytical price computations
     price_anlyt = copula.analytical_price(0., 0.3, 0, 90)
     # montecarlo price computation with time-varying theta
     price_mc = copula.mc_opt_price(n_steps=90, n_sim=5000)
     # montecarlo price computation with fixed theta
     price_mc1 = copula.mc_opt_price(n_steps=90, n_sim=5000, theta=0.3)
-    
-#%%
 
     pc = copula.GBM_montecarlo(T=1, n_steps=90, flag='model', n_sim=100000)
     
